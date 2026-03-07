@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongodb = require('./db/connect');
-const contactsRoutes = require('./routes/contacts');
+const indexRoutes = require('./routes/index');
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -13,7 +13,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/contacts', contactsRoutes);
+app.use('/', indexRoutes);
 
 mongodb.initDb((err, mongodb) => {
     if (err) {

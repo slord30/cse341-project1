@@ -1,5 +1,5 @@
 const mongodb = require('../db/connect');
-const ObjectId = require('mongodb').ObjectId;
+const ObjectId = require('mongodb').ObjectId; //unique id mongo assigns to all databases, basically the primary key
 
 const getAllData = async (req, res, next) => {
   const result = await mongodb.getDb().db('project1').collection('contacts').find();
@@ -11,7 +11,7 @@ const getAllData = async (req, res, next) => {
 
 const getSingle = async (req, res) => {
     const userId = new ObjectId(req.params.id);
-    const result = await mongodb.getDb().db('project1').collection('contacts').find({_id: userId});
+    const result = await mongodb.getDb().db('project1').collection('contacts').find({_id: userId}); //mongo uses _id: userId
     result.toArray().then((lists) => { 
         res.setHeader('Content-Type', 'application/json');
 
