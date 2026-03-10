@@ -1,135 +1,17 @@
-{
-  "swagger": "2.0",
-  "info": {
-    "title": "Contacts API",
-    "description": "CSE 341 Contacts API Documentation",
-    "version": "1.0.0"
-  },
-  "host": "localhost:3000",
-  "basePath": "/",
-  "schemes": [
-    "http"
-  ],
-  "paths": {
-    "/contacts/": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "apiKey",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "example": "any"
-                },
-                "temple_id": {
-                  "example": "any"
-                },
-                "description": {
-                  "example": "any"
-                },
-                "location": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
+const swaggerAutogen = require('swagger-autogen')();
+
+const doc = {
+    info: {
+        title: 'Contacts API',
+        description: 'CSE 341 Contact API Documentation', 
     },
-    "/temples/{temple_id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "temple_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "apiKey",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "temple_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/temples./{temple_id}": {
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "temple_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    }
-  }
-}
+    host: 'localhost:3000',
+    schemes: ['http'],
+};
+
+const outputFile = './swagger.json';
+const endpointsFiles = ['./routes/index.js'];
+
+swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {
+    console.log('Successfully generated swagger.json');
+});

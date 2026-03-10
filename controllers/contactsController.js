@@ -2,6 +2,7 @@ const mongodb = require('../db/connect');
 const ObjectId = require('mongodb').ObjectId; //unique id mongo assigns to all databases, basically the primary key
 
 const getAllData = async (req, res, next) => {
+  //#swagger.tags = ['Contacts]
   const result = await mongodb.getDb().db('project1').collection('contacts').find();
   result.toArray().then((lists) => {
     res.setHeader('Content-Type', 'application/json');
@@ -10,6 +11,7 @@ const getAllData = async (req, res, next) => {
 };
 
 const getSingle = async (req, res) => {
+    //#swagger.tags = ['Contacts]
     const userId = new ObjectId(req.params.id);
     const result = await mongodb.getDb().db('project1').collection('contacts').find({_id: userId}); //mongo uses _id: userId
     result.toArray().then((lists) => { 
@@ -25,6 +27,7 @@ const getSingle = async (req, res) => {
 };
 
 const createContact = async (req, res) => {
+  //#swagger.tags = ['Contacts]
   const contact = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -42,6 +45,7 @@ const createContact = async (req, res) => {
 
 const updateContact = async (req, res) =>
 {
+  //#swagger.tags = ['Contacts]
   const userId = new ObjectId(req.params.id);
   const contact = {
     firstName: req.body.firstName,
@@ -59,6 +63,7 @@ const updateContact = async (req, res) =>
 };
 
 const deleteContact = async (req, res) => {
+  //#swagger.tags = ['Contacts]
   const userId = new ObjectId(req.params.id);
   const response = await mongodb.getDb().db('project1').collection('contacts').deleteOne({_id: userId});
   if (response.deletedCount > 0) {
