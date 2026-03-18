@@ -1,10 +1,14 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const mongodb = require('./db/connect');
+const connectDB = require('./db/connect');
 const indexRoutes = require('./routes/index');
 
 const port = process.env.PORT || 3000;
+
+connectDB().catch(err => {
+    console.log("Failed to start server: ", err);
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended:true}));
@@ -23,11 +27,7 @@ app.use((req, res, next) => {
 
 app.use('/', indexRoutes);
 
-mongodb.initDb((err, mongodb) => {
-    if (err) {
-        console.log(err);
-    } else {
-        app.listen(port);
-        console.log(`Connected to DB and listening on ${port}`);
-    }
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });
+
